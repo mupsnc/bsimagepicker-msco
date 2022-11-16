@@ -5,9 +5,10 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Build;
-import androidx.fragment.app.Fragment;
-import androidx.core.content.ContextCompat;
 import android.util.TypedValue;
+
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 public class Utils {
 
@@ -16,7 +17,6 @@ public class Utils {
     }
 
     public static void checkPermission (Fragment fragment, String permissionString, int permissionCode) {
-        if ((android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.M) || fragment.getContext() == null) return;
         int existingPermissionStatus = ContextCompat.checkSelfPermission(fragment.getContext(),
                 permissionString);
         if (existingPermissionStatus == PackageManager.PERMISSION_GRANTED) return;
@@ -24,8 +24,14 @@ public class Utils {
     }
 
     public static boolean isReadStorageGranted (Context context) {
-        int storagePermissionGranted = ContextCompat.checkSelfPermission(context,
-                Manifest.permission.READ_EXTERNAL_STORAGE);
+        int storagePermissionGranted = -1;
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            storagePermissionGranted = ContextCompat.checkSelfPermission(context,
+                    Manifest.permission.READ_MEDIA_IMAGES);
+        } else {
+            storagePermissionGranted = ContextCompat.checkSelfPermission(context,
+                    Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
         return storagePermissionGranted == PackageManager.PERMISSION_GRANTED;
     }
 

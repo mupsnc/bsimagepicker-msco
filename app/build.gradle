@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
     defaultConfig {
         applicationId "com.asksira.imagepickersheetdemo"
-        minSdkVersion 17
-        targetSdkVersion 32
-        versionCode 2
-        versionName "1.1"
+        minSdkVersion 23
+        targetSdkVersion 33
+        versionCode 3
+        versionName "1.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
