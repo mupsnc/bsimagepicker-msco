@@ -1,5 +1,7 @@
 package com.asksira.bsimagepicker;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
@@ -46,8 +48,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * This is the core class of this library, which extends BottomSheetDialogFragment
@@ -216,7 +216,7 @@ public class BSImagePicker extends BottomSheetDialogFragment implements LoaderMa
                 if (bottomSheet != null) {
                     bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
                     bottomSheetBehavior.setPeekHeight(peekHeight);
-                    bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+                    bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
                         @Override
                         public void onStateChanged(@NonNull View bottomSheet, int newState) {
                             switch (newState) {
@@ -234,10 +234,11 @@ public class BSImagePicker extends BottomSheetDialogFragment implements LoaderMa
                         }
                     });
                 }
+
             }
         });
-
         return dialog;
+
     }
 
     @Override
@@ -266,7 +267,8 @@ public class BSImagePicker extends BottomSheetDialogFragment implements LoaderMa
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         if (getContext() == null) {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
             return;
